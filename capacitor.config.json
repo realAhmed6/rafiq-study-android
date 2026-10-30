@@ -1,0 +1,8 @@
+{
+  "appId": "com.rafiqstudy.app",
+  "appName": "رفيق المذاكرة",
+  "webDir": "www",
+  "android": {
+    "backgroundColor": "#f4f6f1"
+  }
+}

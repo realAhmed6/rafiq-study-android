@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f6f1">
+    <meta name="description" content="رفيقك الهادئ لتنظيم المذاكرة، متابعة التقدم، ومراجعة الدروس.">
+    <title>رفيق المذاكرة — خطّط، ذاكر، وتقدّم</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 40 40%22%3E%3Crect width=%2240%22 height=%2240%22 rx=%2212%22 fill=%22%2352735d%22/%3E%3Ctext x=%2220%22 y=%2229%22 text-anchor=%22middle%22 font-size=%2226%22 fill=%22white%22%3E%D8%B1%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="رفيق المذاكرة — الرئيسية" data-i18n-aria="brand.aria">
+          <span class="brand-mark" aria-hidden="true">ر</span>
+          <span><span data-i18n="brand.name">رفيق</span> <span class="brand-light" data-i18n="brand.suffix">المذاكرة</span></span>
+        </a>
+        <div class="topbar-actions">
+          <time class="today-label" id="today-label"></time>
+          <button class="button button-quiet preference-button" id="theme-toggle" type="button" aria-label="التبديل إلى الوضع الداكن" title="التبديل إلى الوضع الداكن">
+            <span class="theme-icon" aria-hidden="true">
+              <svg class="theme-sun" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path></svg>
+              <svg class="theme-moon" viewBox="0 0 24 24" fill="none"><path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.5 8.5 0 1 0 20.2 15.1Z"></path></svg>
+              <svg class="theme-oled" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5"></circle><path d="m12 7.5 1.1 3.1 3.2 1.1-3.2 1.1-1.1 3.2-1.1-3.2-3.2-1.1 3.2-1.1L12 7.5Z"></path></svg>
+            </span>
+          </button>
+          <button class="button button-quiet preference-button" id="settings-open" type="button" aria-label="الإعدادات" title="الإعدادات" data-i18n-aria="settings.open" data-i18n-title="settings.open">
+            <svg class="settings-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"></path><path d="m19.4 13.5 1.1.9-1.2 2.1-1.4-.5a7.6 7.6 0 0 1-1.5.9l-.2 1.5h-2.4l-.3-1.5a7.6 7.6 0 0 1-1.6-.1l-1 1.2-2-1.2.4-1.4a7.6 7.6 0 0 1-1-1.5l-1.5-.2v-2.4l1.5-.3a7.6 7.6 0 0 1 .2-1.5L7.3 8.4l1.2-2 1.4.4a7.6 7.6 0 0 1 1.5-1l.2-1.5H14l.3 1.5a7.6 7.6 0 0 1 1.5.2l1.1-1.1 2 1.2-.5 1.4a7.6 7.6 0 0 1 1 1.5l1.5.2v2.4l-1.5.3a7.6 7.6 0 0 1 0 1.6Z"></path></svg>
+          </button>
+          <details class="appearance-panel">
+            <summary id="appearance-toggle" aria-controls="appearance-controls" aria-expanded="false">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 1 0 0 18h1.1a2 2 0 0 0 1.4-3.4 1.6 1.6 0 0 1 1.1-2.7H18a3 3 0 0 0 3-3c0-5-4-8.9-9-8.9Z"></path><circle cx="7.5" cy="11" r="1"></circle><circle cx="10" cy="7.5" r="1"></circle><circle cx="15" cy="8" r="1"></circle></svg>
+              <span data-i18n="appearance.title">ألوان الواجهة</span>
+            </summary>
+            <div class="appearance-controls" id="appearance-controls">
+              <label for="palette-select" data-i18n="appearance.palette">لوحة الألوان</label>
+              <select id="palette-select">
+                <option value="emerald" data-i18n="appearance.emerald">أخضر زمردي</option>
+                <option value="crimson" data-i18n="appearance.crimson">أحمر قرمزي</option>
+                <option value="blue" data-i18n="appearance.blue">أزرق ملكي</option>
+                <option value="amber" data-i18n="appearance.amber">ذهبي كهرماني</option>
+                <option value="purple" data-i18n="appearance.purple">بنفسجي</option>
+              </select>
+              <label for="accent-color" data-i18n="appearance.custom">لون مخصص</label>
+              <input id="accent-color" type="color" value="#52735d">
+              <button class="button button-quiet" id="reset-appearance" type="button" data-i18n="appearance.reset">إعادة المظهر الافتراضي</button>
+            </div>
+          </details>
+          <button class="button button-quiet preference-button language-toggle" id="language-toggle" type="button" aria-label="التبديل إلى الإنجليزية" title="التبديل إلى الإنجليزية">EN</button>
+          <button class="button button-quiet" id="export-button" type="button" aria-label="تصدير نسخة احتياطية" title="تصدير نسخة احتياطية" data-i18n-aria="export.label" data-i18n-title="export.label"><span aria-hidden="true">↓</span><span data-i18n="export">تصدير نسخة</span></button>
+          <button class="button button-quiet" id="import-button" type="button" aria-label="استيراد نسخة احتياطية" title="استيراد نسخة احتياطية" data-i18n-aria="import.label" data-i18n-title="import.label"><span aria-hidden="true">↑</span><span data-i18n="import">استيراد نسخة</span></button>
+          <input id="import-file" type="file" accept="application/json,.json" hidden>
+        </div>
+      </header>
+
+      <section class="welcome">
+        <div class="welcome-copy">
+          <p class="eyebrow" data-i18n="welcome.eyebrow">مساحة هادئة لأهداف كبيرة</p>
+          <h1><span data-i18n="welcome.title">خطوة بخطوة،</span><br><span data-i18n="welcome.titleAccent">تصل إلى ما تريد.</span></h1>
+          <p class="welcome-description" data-i18n="welcome.description">خطّط لأسبوعك، ركّز على جلسة واحدة، واحتفِ بكل تقدّم تحرزه.</p>
+          <nav class="welcome-actions" aria-label="اختصارات سريعة" data-i18n-aria="quick.aria">
+            <a class="button button-primary" href="#timer-toggle" data-i18n="quick.timer">انتقل إلى المؤقّت</a>
+            <a class="button button-secondary" href="#lesson-title" data-i18n="quick.lesson">أضف درسًا</a>
+          </nav>
+        </div>
+        <div class="welcome-art" aria-hidden="true">
+          <span class="art-book">
+            <svg viewBox="0 0 48 48" fill="none"><path d="M24 14.5c-4.5-3.2-9.5-3.7-16-2.5v22c6.5-1.2 11.5-.7 16 2.5m0-22c4.5-3.2 9.5-3.7 16-2.5v22c-6.5-1.2-11.5-.7-16 2.5m0-22v22"></path></svg>
+          </span>
+        </div>
+      </section>
+
+      <section class="stats-grid" aria-label="إحصائيات تقدّمك" data-i18n-aria="stats.aria">
+        <article class="stat-card"><span class="stat-icon sage" aria-hidden="true">✓</span><div><span class="stat-label" data-i18n="stats.completed">مهام أنجزتها</span><strong id="stat-completed">٠</strong></div></article>
+        <article class="stat-card"><span class="stat-icon sand" aria-hidden="true">◷</span><div><span class="stat-label" data-i18n="stats.studyTime">وقت المذاكرة</span><strong id="stat-study-time">٠ د</strong></div></article>
+        <article class="stat-card"><span class="stat-icon lilac" aria-hidden="true">▤</span><div><span class="stat-label" data-i18n="stats.lessons">دروسك</span><strong id="stat-lessons">٠</strong></div></article>
+        <article class="stat-card"><span class="stat-icon rose" aria-hidden="true">✦</span><div><span class="stat-label" data-i18n="stats.sessions">جلسات مكتملة</span><strong id="stat-sessions">٠</strong></div></article>
+      </section>
+
+      <section class="focus-layout" aria-label="مؤقّت التركيز والخطة الأسبوعية" data-i18n-aria="focus.aria">
+        <article class="panel timer-panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow" data-i18n="timer.eyebrow">وقت لنفسك</p><h2 data-i18n="timer.title">جلسة تركيز</h2></div>
+            <span class="heading-icon" aria-hidden="true">◷</span>
+          </div>
+          <div class="timer-tabs" role="group" aria-label="نوع المؤقّت" data-i18n-aria="timer.mode">
+            <button class="timer-tab active" id="focus-mode" type="button" aria-pressed="true" data-i18n="timer.focusMode">تركيز · ٢٥ دقيقة</button>
+            <button class="timer-tab" id="break-mode" type="button" aria-pressed="false" data-i18n="timer.breakMode">استراحة · ٥ دقائق</button>
+          </div>
+          <div class="timer-face" aria-live="off">
+            <svg class="timer-ring" viewBox="0 0 220 220" aria-hidden="true">
+              <circle class="ring-track" cx="110" cy="110" r="96"></circle>
+              <circle class="ring-progress" id="timer-progress" cx="110" cy="110" r="96"></circle>
+            </svg>
+            <div class="timer-readout"><strong id="timer-display">٢٥:٠٠</strong><span id="timer-caption">وقت التركيز</span></div>
+          </div>
+          <div class="timer-controls">
+            <button class="button button-primary" id="timer-toggle" type="button">ابدأ الجلسة</button>
+            <button class="button button-secondary" id="timer-reset" type="button" data-i18n="timer.reset">إعادة ضبط</button>
+          </div>
+          <details class="timer-settings">
+            <summary data-i18n="timer.customize">تخصيص مدة الجلسة</summary>
+            <form id="timer-settings-form">
+              <label for="focus-minutes" data-i18n="timer.focusDuration">التركيز (دقائق)</label>
+              <input id="focus-minutes" type="number" min="1" max="180" step="1" required>
+              <label for="break-minutes" data-i18n="timer.breakDuration">الاستراحة (دقائق)</label>
+              <input id="break-minutes" type="number" min="1" max="60" step="1" required>
+              <button class="button button-secondary" type="submit" data-i18n="timer.saveSettings">حفظ المدد</button>
+            </form>
+          </details>
+          <p class="timer-note" id="timer-sessions">كل جلسة إنجاز تستحق استراحة قصيرة.</p>
+        </article>
+
+        <section class="panel planner-panel" aria-labelledby="planner-heading">
+          <div class="panel-heading planner-heading">
+            <div><p class="eyebrow" data-i18n="planner.eyebrow">أسبوعك كما تحب</p><h2 id="planner-heading" data-i18n="planner.title">الخطة الأسبوعية</h2></div>
+            <button class="button button-quiet" id="week-previous" type="button" aria-label="الأسبوع السابق" data-i18n-aria="planner.previousWeek">‹</button>
+            <span class="week-label" id="week-label"></span>
+            <button class="button button-quiet" id="week-next" type="button" aria-label="الأسبوع التالي" data-i18n-aria="planner.nextWeek">›</button>
+          </div>
+          <form class="planner-form" id="planner-form">
+            <label class="visually-hidden" for="planner-task" data-i18n="planner.task">المهمة</label>
+            <input id="planner-task" name="task" type="text" maxlength="150" placeholder="ما الذي تريد إنجازه؟" data-i18n-placeholder="planner.placeholder" required>
+            <label class="visually-hidden" for="planner-date" data-i18n="planner.dueDate">موعد المهمة</label>
+            <input id="planner-date" name="dueDate" type="date" required>
+            <button class="button button-primary" type="submit"><span data-i18n="planner.add">أضف للخطة</span> <span aria-hidden="true">＋</span></button>
+          </form>
+          <div class="week-days" id="week-days" aria-label="أيام الأسبوع" data-i18n-aria="planner.weekDays"></div>
+          <ul class="planner-list" id="planner-list" aria-live="polite"></ul>
+          <p class="empty-inline" id="planner-empty" data-i18n="planner.empty">لا توجد مهام في هذا الأسبوع بعد. أضف أول خطوة صغيرة!</p>
+        </section>
+      </section>
+
+      <section class="workspace" aria-label="دروسك ومهامها" data-i18n-aria="lessons.aria">
+        <aside class="panel lesson-sidebar">
+          <div class="panel-heading"><div><p class="eyebrow" data-i18n="lessons.eyebrow">ابدأ بخطوة</p><h2 data-i18n="lessons.addTitle">أضف درسًا</h2></div><span class="heading-icon" aria-hidden="true">✎</span></div>
+          <form id="lesson-form" class="lesson-form">
+            <label for="lesson-title" data-i18n="lessons.title">عنوان الدرس</label>
+            <input id="lesson-title" name="title" type="text" maxlength="100" placeholder="مثال: الفصل الثالث — الخلية" data-i18n-placeholder="lessons.titlePlaceholder" required>
+            <label for="lesson-subject"><span data-i18n="lessons.subject">المادة</span> <span class="optional" data-i18n="optional">(اختياري)</span></label>
+            <input id="lesson-subject" name="subject" type="text" maxlength="50" placeholder="مثال: الأحياء" data-i18n-placeholder="lessons.subjectPlaceholder">
+            <button class="button button-primary" type="submit"><span data-i18n="lessons.add">أضف الدرس</span> <span aria-hidden="true">＋</span></button>
+          </form>
+          <div class="sidebar-tip"><span aria-hidden="true">✦</span><p><strong data-i18n="tip.title">نصيحة اليوم</strong><br><span data-i18n="tip.text">المهام الصغيرة أسهل بدايةً وأوضح إنجازًا.</span></p></div>
+        </aside>
+
+        <section class="lessons-panel" aria-labelledby="lessons-heading">
+          <div class="panel-heading lessons-heading-row">
+            <div><p class="eyebrow" data-i18n="lessons.progressEyebrow">تقدّمك يصنع الفرق</p><h2 id="lessons-heading"><span data-i18n="lessons.heading">دروسي</span> <span id="visible-count"></span></h2></div>
+            <label class="search-box"><span aria-hidden="true">⌕</span><span class="visually-hidden" data-i18n="lessons.searchLabel">ابحث في الدروس</span><input id="search-input" type="search" placeholder="ابحث عن درس..." data-i18n-placeholder="lessons.searchPlaceholder"></label>
+          </div>
+          <div class="lesson-list" id="lesson-list" aria-live="polite"></div>
+          <div class="empty-state" id="empty-state"><span class="empty-illustration" aria-hidden="true">☼</span><h3 id="empty-title">لا توجد دروس بعد</h3><p id="empty-description">أضف درسًا، ثم قسّمه إلى مهام سهلة الإنجاز.</p></div>
+        </section>
+      </section>
+
+      <section class="panel flashcards-panel" aria-label="بطاقات المراجعة" data-i18n-aria="cards.aria" aria-labelledby="flashcards-heading">
+          <div class="panel-heading"><div><p class="eyebrow" data-i18n="cards.eyebrow">تذكّرها بطريقتك</p><h2 id="flashcards-heading" data-i18n="cards.title">بطاقات المراجعة</h2></div><span class="heading-icon" aria-hidden="true">▧</span></div>
+          <p class="panel-intro" data-i18n="cards.intro">اكتب سؤالًا أو مصطلحًا على الوجه، وإجابته على الوجه الآخر.</p>
+          <form class="flashcard-form" id="flashcard-form">
+            <input id="card-question" type="text" maxlength="180" placeholder="السؤال أو المصطلح" data-i18n-placeholder="cards.question" aria-label="السؤال أو المصطلح" data-i18n-aria="cards.question" required>
+            <input id="card-answer" type="text" maxlength="300" placeholder="الإجابة أو التعريف" data-i18n-placeholder="cards.answer" aria-label="الإجابة أو التعريف" data-i18n-aria="cards.answer" required>
+            <button class="button button-primary" type="submit"><span data-i18n="cards.add">أضف بطاقة</span> <span aria-hidden="true">＋</span></button>
+          </form>
+          <button class="flashcard" id="flashcard" type="button" aria-label="اقلب بطاقة المراجعة" data-i18n-aria="cards.flip">
+            <span class="card-face-label" id="card-face-label">السؤال</span><strong id="card-content"></strong><span class="flip-hint" data-i18n="cards.flipHint">اضغط لقلب البطاقة ↻</span>
+          </button>
+          <div class="card-navigation"><button class="button button-secondary" id="card-previous" type="button" data-i18n="cards.previous">السابق</button><span id="card-position"></span><button class="button button-secondary" id="card-next" type="button" data-i18n="cards.next">التالي</button></div>
+          <button class="text-button danger-text" id="card-delete" type="button" data-i18n="cards.delete">حذف هذه البطاقة</button>
+      </section>
+
+      <section class="panel scratchpad-panel" aria-labelledby="scratchpad-heading">
+        <div class="panel-heading"><div><p class="eyebrow" data-i18n="scratchpad.eyebrow">مساحة شخصية</p><h2 id="scratchpad-heading" data-i18n="scratchpad.title">ملاحظات سريعة</h2></div><span class="heading-icon" aria-hidden="true">✎</span></div>
+        <p class="panel-intro" data-i18n="scratchpad.description">دوّن فكرة سريعة؛ تُحفظ ملاحظاتك تلقائيًا على هذا الجهاز.</p>
+        <label class="visually-hidden" for="scratchpad-input" data-i18n="scratchpad.label">مساحة الملاحظات</label>
+        <textarea id="scratchpad-input" rows="5" maxlength="10000" placeholder="اكتب ملاحظة..." data-i18n-placeholder="scratchpad.placeholder"></textarea>
+      </section>
+
+      <aside class="privacy-note"><span aria-hidden="true">⌑</span><p><strong data-i18n="privacy.title">بياناتك لك.</strong> <span data-i18n="privacy.text">تُحفظ خطتك على هذا المتصفح والجهاز فقط، ولا تتزامن تلقائيًا بين أجهزتك أو مع أشخاص آخرين. استخدم التصدير والاستيراد لنقل نسخة احتياطية بنفسك.</span></p></aside>
+      <div class="factory-reset-actions">
+        <button class="button button-danger" id="factory-reset-button" type="button" data-i18n="resetAll.trigger">إعادة ضبط جميع البيانات</button>
+      </div>
+      <footer class="page-footer"><span data-i18n="footer.tagline">على مهل — المهم أن تستمر</span> <span aria-hidden="true">✦</span><small data-i18n="footer.note">رفيق المذاكرة يعمل كملفات ثابتة، دون خادم أو حساب.</small></footer>
+      <dialog class="factory-reset-dialog" id="factory-reset-dialog" aria-labelledby="factory-reset-title" aria-describedby="factory-reset-description">
+        <span class="factory-reset-icon" aria-hidden="true">!</span>
+        <h2 id="factory-reset-title" data-i18n="resetAll.title">هل تريد إعادة ضبط جميع البيانات؟</h2>
+        <p id="factory-reset-description" data-i18n="resetAll.description">سيؤدي ذلك إلى حذف تقدمك وملاحظاتك ومهامك وإعداداتك من هذا المتصفح نهائيًا. لا يمكن التراجع عن هذا الإجراء.</p>
+        <p class="factory-reset-error" id="factory-reset-error" role="alert" hidden></p>
+        <div class="factory-reset-dialog-actions">
+          <button class="button button-quiet" id="factory-reset-cancel" type="button" data-i18n="resetAll.cancel">إلغاء</button>
+          <button class="button button-danger" id="factory-reset-confirm" type="button" data-i18n="resetAll.confirm">نعم، احذف كل البيانات</button>
+        </div>
+      </dialog>
+      <dialog class="settings-dialog" id="settings-dialog" aria-labelledby="settings-title">
+        <div class="settings-dialog-heading">
+          <h2 id="settings-title" data-i18n="settings.title">الإعدادات</h2>
+          <button class="button button-quiet settings-close" id="settings-close" type="button" aria-label="إغلاق الإعدادات" data-i18n-aria="settings.close">×</button>
+        </div>
+        <label class="alarm-toggle" for="alarm-enabled">
+          <span data-i18n="alarm.enabled">تفعيل صوت التنبيه</span>
+          <input id="alarm-enabled" type="checkbox">
+        </label>
+        <fieldset class="alarm-controls" id="alarm-controls" disabled>
+          <label for="alarm-sound" data-i18n="alarm.sound">نغمة التنبيه</label>
+          <select id="alarm-sound">
+            <option value="bell" data-i18n="alarm.sound.bell">جرس هادئ</option>
+            <option value="chime" data-i18n="alarm.sound.chime">رنين قصير</option>
+            <option value="digital" data-i18n="alarm.sound.digital">نغمة رقمية</option>
+            <option value="custom" data-i18n="alarm.sound.custom">ملف صوتي من الجهاز</option>
+          </select>
+          <label for="alarm-file" data-i18n="alarm.customFile">اختر ملفًا صوتيًا</label>
+          <input id="alarm-file" type="file" accept="audio/*">
+          <p class="alarm-file-name" id="alarm-file-name" data-i18n="alarm.noFile">لم يُختر ملف صوتي مخصص بعد.</p>
+          <label for="alarm-volume" data-i18n="alarm.volume">مستوى الصوت</label>
+          <div class="alarm-volume-control">
+            <input id="alarm-volume" type="range" min="0" max="100" step="1">
+            <output id="alarm-volume-value" for="alarm-volume">٧٠٪</output>
+          </div>
+          <div class="alarm-actions">
+            <button class="button button-secondary" id="alarm-test" type="button" data-i18n="alarm.test">تجربة الصوت</button>
+            <button class="button button-quiet" id="alarm-stop" type="button" data-i18n="alarm.stop">إيقاف الصوت</button>
+          </div>
+        </fieldset>
+        <p class="alarm-offline-note" data-i18n="alarm.offlineNote">الصوت يعمل دون إنترنت عند بقاء الصفحة مفتوحة. لا يمكن للنسخة الثابتة تشغيل تنبيه في الخلفية بعد إغلاق الصفحة.</p>
+      </dialog>
+      <button class="back-to-top" id="back-to-top" type="button" aria-label="العودة إلى أعلى الصفحة" title="العودة إلى أعلى الصفحة" data-i18n-aria="quick.top" data-i18n-title="quick.top" hidden>↑</button>
+      <p class="status-message" id="status-message" role="status" aria-live="polite"></p>
+    </main>
+  </body>
+</html>

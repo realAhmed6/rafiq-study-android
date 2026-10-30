@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">رفيق المذاكرة</string>
+    <string name="title_activity_main">رفيق المذاكرة</string>
+    <string name="package_name">com.rafiqstudy.app</string>
+    <string name="custom_url_scheme">com.rafiqstudy.app</string>
+</resources>
